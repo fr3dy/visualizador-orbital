@@ -27,16 +27,16 @@ export function App() {
     <>
       {!ready && <LoadingScreen />}
 
-      {/* Mobile layout: fixed al viewport real, canvas + bottom sheet superpuesto */}
-      <div className="md:hidden fixed inset-0" style={{ height: '100dvh' }}>
+      {/* Mobile: fixed al viewport real — no depende de ningún height padre */}
+      <div className="md:hidden" style={{ position: 'fixed', inset: 0 }}>
         <OrbitCanvas className="absolute inset-0" />
         <BottomSheet />
       </div>
 
-      {/* Desktop layout: canvas + sidebar */}
-      <div className="hidden md:flex h-full w-full">
+      {/* Desktop: también fixed para el mismo motivo */}
+      <div className="hidden md:flex" style={{ position: 'fixed', inset: 0 }}>
         <OrbitCanvas className="flex-1 h-full" />
-        <div className="w-80 h-full shrink-0">
+        <div className="w-80 h-full shrink-0 overflow-hidden">
           <Sidebar />
         </div>
       </div>
