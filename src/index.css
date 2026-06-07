@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #root {
+html, body {
   height: 100%;
+  /* dvh se adapta al viewport real en móvil (sin la barra del navegador) */
+  height: 100dvh;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  height: 100dvh;
   overflow: hidden;
 }
 

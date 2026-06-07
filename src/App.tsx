@@ -27,8 +27,8 @@ export function App() {
     <>
       {!ready && <LoadingScreen />}
 
-      {/* Mobile layout: canvas fills screen, bottom sheet overlays */}
-      <div className="md:hidden h-full w-full relative">
+      {/* Mobile layout: fixed al viewport real, canvas + bottom sheet superpuesto */}
+      <div className="md:hidden fixed inset-0" style={{ height: '100dvh' }}>
         <OrbitCanvas className="absolute inset-0" />
         <BottomSheet />
       </div>

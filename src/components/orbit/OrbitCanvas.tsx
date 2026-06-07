@@ -274,37 +274,35 @@ export function OrbitCanvas({ className }: OrbitCanvasProps) {
     <div className={`relative bg-space-950 ${className ?? ''}`}>
       <div ref={mountRef} className="w-full h-full" />
 
-      {/* HUD principal — esquina superior izquierda */}
-      <div className="absolute top-3 left-3 flex flex-col gap-1.5 select-none pointer-events-none">
+      {/* HUD — esquina superior izquierda, compacto en móvil */}
+      <div className="absolute top-2 left-2 flex flex-col gap-1 select-none pointer-events-none max-w-[11rem]">
 
         {/* Fecha + día del año */}
-        <div className="bg-slate-900/75 backdrop-blur-sm rounded-lg px-3 py-2 border border-slate-700/40">
-          <div className="text-slate-100 text-sm font-semibold leading-tight">{dateStr}</div>
-          <div className="text-slate-400 text-xs mt-0.5">Día {dayOfYear} del año</div>
+        <div className="bg-slate-900/80 backdrop-blur-sm rounded-lg px-2.5 py-1.5 border border-slate-700/40">
+          <div className="text-slate-100 text-xs font-semibold leading-tight">{dateStr}</div>
+          <div className="text-slate-400 text-[10px]">Día {dayOfYear} del año</div>
         </div>
 
         {orbitalData && tiltData && (
           <>
             {/* Distancia al Sol */}
-            <div className="bg-slate-900/75 backdrop-blur-sm rounded-lg px-3 py-2 border border-slate-700/40">
-              <div className="text-slate-500 text-[10px] uppercase tracking-wider mb-0.5">Distancia al Sol</div>
-              <div className="text-amber-300 text-sm font-mono font-semibold">
+            <div className="bg-slate-900/80 backdrop-blur-sm rounded-lg px-2.5 py-1.5 border border-slate-700/40">
+              <div className="text-slate-500 text-[9px] uppercase tracking-wider">Distancia al Sol</div>
+              <div className="text-amber-300 text-xs font-mono font-semibold">
                 {orbitalData.distanceAU.toFixed(4)} AU
               </div>
-              <div className="text-slate-400 text-xs">
+              <div className="text-slate-400 text-[10px]">
                 {(orbitalData.distanceKm / 1_000_000).toFixed(3)} M km
               </div>
             </div>
 
             {/* Inclinación axial */}
-            <div className="bg-slate-900/75 backdrop-blur-sm rounded-lg px-3 py-2 border border-orange-500/30">
-              <div className="text-slate-500 text-[10px] uppercase tracking-wider mb-0.5">Inclinación axial</div>
-              <div className="flex items-end gap-1.5">
-                {/* SVG del eje inclinado */}
-                <svg width="28" height="36" viewBox="0 0 28 36" className="shrink-0 mb-0.5">
+            <div className="bg-slate-900/80 backdrop-blur-sm rounded-lg px-2.5 py-1.5 border border-orange-500/30">
+              <div className="text-slate-500 text-[9px] uppercase tracking-wider">Inclinación axial</div>
+              <div className="flex items-center gap-1.5">
+                <svg width="22" height="28" viewBox="0 0 28 36" className="shrink-0">
                   <ellipse cx="14" cy="28" rx="10" ry="4" fill="none" stroke="#334155" strokeWidth="1.2"/>
                   <circle cx="14" cy="18" r="7" fill="#1a4a7a" stroke="#3b82f6" strokeWidth="1"/>
-                  {/* eje inclinado 23.44° */}
                   <line
                     x1={14 + 9 * Math.sin(23.44 * Math.PI / 180)}
                     y1={18 - 9 * Math.cos(23.44 * Math.PI / 180)}
@@ -312,14 +310,13 @@ export function OrbitCanvas({ className }: OrbitCanvasProps) {
                     y2={18 + 9 * Math.cos(23.44 * Math.PI / 180)}
                     stroke="#f97316" strokeWidth="1.8" strokeLinecap="round"
                   />
-                  {/* ecuador */}
                   <ellipse cx="14" cy="18" rx="7" ry="2.5" fill="none" stroke="#22d3ee" strokeWidth="0.8" opacity="0.6"/>
                 </svg>
                 <div>
-                  <div className="text-orange-300 text-sm font-mono font-semibold">
+                  <div className="text-orange-300 text-xs font-mono font-semibold">
                     {tiltData.obliquity.toFixed(4)}°
                   </div>
-                  <div className="text-slate-400 text-xs">
+                  <div className="text-slate-400 text-[10px]">
                     Dec. solar {orbitalData.declination > 0 ? '+' : ''}{orbitalData.declination.toFixed(2)}°
                   </div>
                 </div>
@@ -328,12 +325,12 @@ export function OrbitCanvas({ className }: OrbitCanvasProps) {
 
             {/* Estación */}
             <div className="bg-slate-900/75 backdrop-blur-sm rounded-lg px-3 py-2 border border-slate-700/40">
-              <div className="text-slate-500 text-[10px] uppercase tracking-wider mb-0.5">Estación</div>
+              <div className="text-slate-500 text-[9px] uppercase tracking-wider">Estación</div>
               <div className="flex items-center gap-1.5">
-                <span className="text-lg leading-none">{seasonIcon[tiltData.seasonName] ?? '🌍'}</span>
+                <span className="text-base leading-none">{seasonIcon[tiltData.seasonName] ?? '🌍'}</span>
                 <div>
-                  <div className="text-slate-100 text-sm font-semibold">{tiltData.seasonName}</div>
-                  <div className="text-slate-400 text-xs">{tiltData.daylightHours.toFixed(1)} h de luz</div>
+                  <div className="text-slate-100 text-xs font-semibold">{tiltData.seasonName}</div>
+                  <div className="text-slate-400 text-[10px]">{tiltData.daylightHours.toFixed(1)} h de luz</div>
                 </div>
               </div>
             </div>
